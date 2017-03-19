@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies":
   {
+    "express": "*",
     "node-persist":"*",
-    "pouchdb": "*",
   	"twit" : "1.x",
   	 "tracery-grammar": "2.x"
   },
