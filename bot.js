@@ -62,4 +62,6 @@ if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] &&twitConfig['ac
   });
 
   console.log("Server live");
+} else {
+  console.log("You're mising values in your .env file");
 }
