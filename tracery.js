@@ -4,6 +4,8 @@ var tracery = require('tracery-grammar'),
 
 processedGrammar.addModifiers(tracery.baseEngModifiers); 
 
+module.exports.grammar = processedGrammar;
+
 module.exports.generateTweet = function (){
   return processedGrammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
 }

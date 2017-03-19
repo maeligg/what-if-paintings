@@ -1,20 +1,19 @@
 {
-  "name": "tracerybot",
+  "name": "tracery-twitter-bot",
   "version": "0.0.0",
   "description": "twitterbot generating from tracery",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node bot.js"
   },
-  "author": "v21",
+  "author": "byronhulcher",
   "license": "ISC",
   "dependencies":
   {
-    "express": "*",
-    "node-persist":"*",
-  	"twit" : "1.x",
-  	 "tracery-grammar": "2.x"
+    "express": "4.x",
+    "node-persist":"2.x",
+  	"tracery-grammar": "2.x",
+    "twit" : "1.x"
   },
   "engines": {
     "node": "6.9.x"
