@@ -1,5 +1,5 @@
 var Twit = require('twit'),
-    traceryGenerator = 
+    traceryGenerator = require('./tracery.js');
 
 
 var T = new Twit(
@@ -11,9 +11,9 @@ var T = new Twit(
 }
 );
 
-// T.post('statuses/update', { status: tweet }, function(err, data, response) {
-  //console.log(data);
-// })
+T.post('statuses/update', { status: traceryGenerator.generateTweet() }, function(err, data, response) {
+  console.log(data);
+});
 
 // T.get('statuses/mentions_timeline', { count: 10, include_entities: false }, function(err, data, response) {
 //   console.log(response);
