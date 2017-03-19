@@ -1,6 +1,11 @@
-var Twit = require('twit'),
-    traceryGenerator = require('./tracery.js');
+var storage = require('node-persist'),
+    Twit = require('twit'),
+    traceryGenerator = require('./tracery.js'),
+    now = Date.now(), // 
+    lastRun;
 
+
+storage.initSync();
 
 var T = new Twit(
 {
@@ -11,14 +16,21 @@ var T = new Twit(
 }
 );
 
-var storage = require('node-persist');
-storage.initSync();
-console.log("Cats", storage.getItemSync("cats"));
-storage.setItemSync("cats", "100");
+lastRun = storage.getItemSync("lastRun") || 0;
+console.log("Last Run On:", lastRun);
+if (now - lastRun > (1000 * 60 * 2)) { // 2 minutes
+  console.log("Can run again");
+  T.post('statuses/update', { status: traceryGenerator.generateTweet() }, function(err, data, response) {
+    console.log(data);
+  });
+  storage.setItemSync("lastRun", now);
+} else {
+  console.log("It's too soon", now - lastRun );
+}
 
-// T.post('statuses/update', { status: traceryGenerator.generateTweet() }, function(err, data, response) {
-//   console.log(data);
-// });
+
+
+
 
 // T.get('statuses/mentions_timeline', { count: 10, include_entities: false }, function(err, data, response) {
 //   console.log(response);
