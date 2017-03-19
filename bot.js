@@ -13,12 +13,12 @@ var twit = new Twit({
 });
 
 function generateStatus() {
-  // Generate a new tweet using our grammary
+  // Generate a new tweet using our grammar
   return grammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
 }
 
 function postTweet(status){
-  // Post it to Twitter
+  // Post a status to twitter to Twitter
   twit.post('statuses/update', { status: status }, function(err, data, response) {
     console.log(`Posted status: ${status}`)
   });
@@ -32,12 +32,12 @@ function tryToTweet(){
   
   if (now - lastRun > (1000 * 60 * postDelay)) { //Post every process.env.POST_DELAY_IN_MINUTES or 60 minutes
     status = generateStatus();
-    if (status && status.length && status.length <= 140){
+    if (status.length <= 140){
       console.log("Tweeting!");
       postTweet(status);
       storage.setItemSync("lastRun", now);
     } else {
-      console.log("Couldn't generate a good status: ${status}");
+      console.log(`Status too long: ${status}`);
     }
   } else {
     console.log(`It's too soon, we only post every ${postDelay} minutes. It's only been ${ Math.floor((now - lastRun) / 60 / 1000 ) } minutes`);
@@ -47,7 +47,7 @@ function tryToTweet(){
 var app = express();
 // http://expressjs.com/en/starter/basic-routing.html
 app.post("/tweet", function (request, response) {
-  console.log("Got a request!");
+  console.log("Got a hit!");
   tryToTweet();
   response.sendStatus(200)
 });
