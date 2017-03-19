@@ -11,9 +11,14 @@ var T = new Twit(
 }
 );
 
-T.post('statuses/update', { status: traceryGenerator.generateTweet() }, function(err, data, response) {
-  console.log(data);
-});
+var storage = require('node-persist');
+storage.initSync();
+console.log("Cats", storage.getItemSync("cats"));
+storage.setItemSync("cats", "100");
+
+// T.post('statuses/update', { status: traceryGenerator.generateTweet() }, function(err, data, response) {
+//   console.log(data);
+// });
 
 // T.get('statuses/mentions_timeline', { count: 10, include_entities: false }, function(err, data, response) {
 //   console.log(response);
