@@ -5,12 +5,14 @@ var express = require('express'),
 
 storage.initSync();
 
-var twit = new Twit({
+var twitConfig = {
   consumer_key:         process.env.TWITTER_CONSUMER_KEY,
   consumer_secret:      process.env.TWITTER_CONSUMER_SECRET,
   access_token:         process.env.TWITTER_ACCESS_TOKEN,
   access_token_secret:  process.env.TWITTER_ACCESS_TOKEN_SECRET
-});
+}
+
+
 
 function generateStatus() {
   // Generate a new tweet using our grammar
@@ -44,17 +46,20 @@ function tryToTweet(){
   }
 }
 
-var app = express();
-// http://expressjs.com/en/starter/basic-routing.html
-app.post("/tweet", function (request, response) {
-  console.log("Got a hit!");
-  tryToTweet();
-  response.sendStatus(200)
-});
+if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] &&twitConfig['access_token'] && twitConfig['access_token_secret']){
+  var twit = new Twit(twitConfig);
+  var app = express();
+  // http://expressjs.com/en/starter/basic-routing.html
+  app.post("/tweet", function (request, response) {
+    console.log("Got a hit!");
+    tryToTweet();
+    response.sendStatus(200)
+  });
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+  // listen for requests :)
+  var listener = app.listen(process.env.PORT, function () {
+    console.log('Your app is listening on port ' + listener.address().port);
+  });
 
-console.log("Server live");
+  console.log("Server live");
+}
