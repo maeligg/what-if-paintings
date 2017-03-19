@@ -18,7 +18,7 @@ var T = new Twit(
 
 lastRun = storage.getItemSync("lastRun") || 0;
 console.log("Last Run On:", lastRun);
-if (now - lastRun > (1000 * 60 * 2)) { // 2 minutes
+if (now - lastRun > (1000 * 60 * 5)) { // 5 minutes
   console.log("Can run again");
   T.post('statuses/update', { status: traceryGenerator.generateTweet() }, function(err, data, response) {
     console.log(data);
@@ -27,10 +27,6 @@ if (now - lastRun > (1000 * 60 * 2)) { // 2 minutes
 } else {
   console.log("It's too soon", now - lastRun );
 }
-
-
-
-
 
 // T.get('statuses/mentions_timeline', { count: 10, include_entities: false }, function(err, data, response) {
 //   console.log(response);
