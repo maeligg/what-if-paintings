@@ -50,7 +50,7 @@ if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] && twitConfig['a
   var twit = new Twit(twitConfig);
   var app = express();
   // http://expressjs.com/en/starter/basic-routing.html
-  app.post("/tweet", function (request, response) {
+  app.get("/tweet", function (request, response) {
     console.log("Got a hit!");
     tryToTweet();
     response.sendStatus(200)
