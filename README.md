@@ -1,9 +1,7 @@
-This is a version of [Cheap Bots, Done Quick!](http://cheapbotsdonequick.com/) that runs as a single bot.
+This is a version of [Cheap Bots, Done Quick!](http://cheapbotsdonequick.com/) that runs as a single bot. It is based on [v21/tracerybot](http://github.com/v21/tracerybot)
 
 Basic instructions for usage:
-- clone this repo to a Linux server
-- get it set up as a Node app (install Node, if needed, then run `npm install`)
-- create a Twitter app on the developer site, register a Twitter account, do that OAuth dance (maybe using [http://v21.io/iwilldancetheoauthdanceforyou/](http://v21.io/iwilldancetheoauthdanceforyou/) ?)
-- put the values you get from that into a file called `.env` (as in `.env_EXAMPLE`)
-- add your Tracery code into the `rawGrammar` variable within `bot.js`
-- call `run_bot.sh` whenever you want the bot to tweet (ie via `cron`)
+- Click the project settings in the upper-left and "Remix This"!
+- Modify the [tracery](http://www.crystalcodepalace.com/traceryTut.html) grammar in `grammar.json`
+- Add your Twitter OAugh tokens to `.env`
+- Modify how frequently it posts in 
