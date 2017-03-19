@@ -126,6 +126,10 @@ var T = new Twit(
 );
 
 
-T.get('statuses/mentions_timeline', function(){
-  
-})
+T.get('statuses/mentions_timeline', { count: 10, include_entities: false }, function(err, data, response) {
+  response.map(respondToTweet);
+});
+
+function respondToTweet(tweet){
+  console.log(tweet.text);
+}
