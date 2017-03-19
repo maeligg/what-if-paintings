@@ -1,11 +1,9 @@
-var tracery = require('tracery-grammar');
-
-var rawGrammar = require('./grammar.json');
-
-var processedGrammar = tracery.createGrammar(rawGrammar);
+var tracery = require('tracery-grammar'),
+    rawGrammar = require('./grammar.json'), // the grammar for the bot, edit this!
+    processedGrammar = tracery.createGrammar(rawGrammar);
 
 processedGrammar.addModifiers(tracery.baseEngModifiers); 
 
 module.exports.generateTweet = function (){
-  return processedGrammar.flatten("#origin#");
+  return processedGrammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
 }
