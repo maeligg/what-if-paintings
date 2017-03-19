@@ -46,7 +46,7 @@ function tryToTweet(){
   }
 }
 
-if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] &&twitConfig['access_token'] && twitConfig['access_token_secret']){
+if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] && twitConfig['access_token'] && twitConfig['access_token_secret']){
   var twit = new Twit(twitConfig);
   var app = express();
   // http://expressjs.com/en/starter/basic-routing.html
