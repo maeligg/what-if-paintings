@@ -1,7 +1,7 @@
 var express = require('express'),
     storage = require('node-persist'),
     Twit = require('twit'),
-    grammar = require('./tracery.js').grammar,
+    grammar = require('./tracery.js').grammar;
 
 storage.initSync();
 
@@ -18,16 +18,17 @@ function postStatus(){
   
   // Post it to Twitter
   twit.post('statuses/update', { status: newTweet }, function(err, data, response) {
-    console.log(`posted: ${newTweet}`)
+    console.log(`Posted: ${newTweet}`)
   });
 }
 
 function tryToTweet(){
-  var lastRun = storage.getItemSync("lastRun") || 0,
-  now = Date.now(), // time since epoch in milliseconds
-  postDelay = process.env.POST_DELAY_IN_MINUTES || 60; // time to delay between tweets in minutes
+  var now = Date.now(), // time since epoch in millisecond
+      lastRun = storage.getItemSync("lastRun") || 0, // last time we were run in milliseconds
+      postDelay = process.env.POST_DELAY_IN_MINUTES || 60; // time to delay between tweets in minutes
   
   if (now - lastRun > (1000 * 60 * postDelay)) { //Post every process.env.POST_DELAY_IN_MINUTES or 60 minutes
+    console.log("Tweeting!")
     postStatus();
     storage.setItemSync("lastRun", now);
   } else {
@@ -38,7 +39,7 @@ function tryToTweet(){
 var app = express();
 // http://expressjs.com/en/starter/basic-routing.html
 app.post("/tweet", function (request, response) {
-  console.log("Got a request, tweeting!");
+  console.log("Got a request!");
   tryToTweet();
   response.sendStatus(200)
 });
