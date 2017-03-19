@@ -126,9 +126,6 @@ var T = new Twit(
 );
 
 
-T.post('statuses/update', { status: tweet }, function(err, data, response) {
-  //console.log(data)
+T.get('statuses/mentions_timeline', function(){
+  
 })
-
-
-
