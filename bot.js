@@ -12,25 +12,33 @@ var twit = new Twit({
   access_token_secret:  process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
-function postStatus(){
+function generateStatus() {
   // Generate a new tweet using our grammary
-  var newTweet = grammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
-  
+  return grammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
+}
+
+function postTweet(status){
   // Post it to Twitter
-  twit.post('statuses/update', { status: newTweet }, function(err, data, response) {
-    console.log(`Posted: ${newTweet}`)
+  twit.post('statuses/update', { status: status }, function(err, data, response) {
+    console.log(`Posted status: ${status}`)
   });
 }
 
 function tryToTweet(){
   var now = Date.now(), // time since epoch in millisecond
       lastRun = storage.getItemSync("lastRun") || 0, // last time we were run in milliseconds
-      postDelay = process.env.POST_DELAY_IN_MINUTES || 60; // time to delay between tweets in minutes
+      postDelay = process.env.POST_DELAY_IN_MINUTES || 60, // time to delay between tweets in minutes
+      status;
   
   if (now - lastRun > (1000 * 60 * postDelay)) { //Post every process.env.POST_DELAY_IN_MINUTES or 60 minutes
-    console.log("Tweeting!")
-    postStatus();
-    storage.setItemSync("lastRun", now);
+    status = generateStatus();
+    if (status && status.length && status.length <= 140){
+      console.log("Tweeting!");
+      postTweet(status);
+      storage.setItemSync("lastRun", now);
+    } else {
+      console.log("Couldn't generate a good status: ${status}");
+    }
   } else {
     console.log(`It's too soon, we only post every ${postDelay} minutes. It's only been ${ Math.floor((now - lastRun) / 60 / 1000 ) } minutes`);
   }
