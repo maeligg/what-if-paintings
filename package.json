@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies":
   {
-    "mongodb": "*",
+    "pouchdb": "*",
   	"twit" : "1.x",
   	 "tracery-grammar": "2.x"
   },
