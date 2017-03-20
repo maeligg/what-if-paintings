@@ -4,20 +4,18 @@ var express = require('express'),
 
 var app = express();
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public')); // serve static files like index.html
+app.use(express.static('public')); // serve static files like index.html http://expressjs.com/en/starter/static-files.html
 
 function generateStatus() {
   // Generate a new tweet using our grammar
   return grammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
 }
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.all("/tweet", function (request, response) {
+app.all("/tweet", function (request, response) { // send a GET or POST to /tweet to trigger a tweet http://expressjs.com/en/starter/basic-routing.html
   var newStatus = generateStatus();
 
   console.log("Got a hit!");
-  if (twitter.tryToTweet(newStatus)){
+  if (twitter.tryToTweet(newStatus)){ // Some things could prevent us from tweeting. Find out more in twitter.js
     response.sendStatus(200);  // We successfully tweeted
   } else {
     response.sendStatus(500); // Something prevented us from tweeting

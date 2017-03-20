@@ -17,5 +17,9 @@
   },
   "engines": {
     "node": "6.9.x"
+  },
+  "repository" : { 
+    "type" : "glitch",
+    "url" : "https://glitch.com/edit/#!/tracery-twitter-bot"
   }
 }

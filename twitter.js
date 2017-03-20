@@ -18,16 +18,10 @@ try {
 }
 
 function postTweet(status){
-  if (twit){
-    console.log("Tweeting!");
-    twit.post('statuses/update', { status: status }, function(err, data, response) {
-      console.log(`Posted status: ${status}`);
-    });
-    return true;
-  } else {
-    console.error("Sorry, have haven't setup twitter yet in your .env")
-    return false;
-  }
+  console.log("Tweeting!");
+  twit.post('statuses/update', { status: status }, function(err, data, response) {
+    console.log(`Posted status: ${status}`);
+  });
 }
 
 // A few things will prevent a tweet from going out:
@@ -38,16 +32,21 @@ module.exports.tryToTweet = function(status){
   var now = Date.now(), // time since epoch in millisecond
       lastRun = storage.getItemSync("lastRun") || 0, // last time we were run in milliseconds
       postDelay = process.env.POST_DELAY_IN_MINUTES || 60;// time to delay between tweets in minutes
-
-  if (now - lastRun > (1000 * 60 * postDelay)) { //Post every process.env.POST_DELAY_IN_MINUTES or 60 minutes
-    if (status.length <= 140){
-      storage.setItemSync("lastRun", now);
-      return postTweet(status);
-    } else {
-      console.error(`Status too long: ${status}`);
-    }
-  } else {
-    console.error(`It's too soon, we only post every ${postDelay} minutes. It's only been ${ Math.floor((now - lastRun) / 60 / 1000 ) } minutes`);
+  
+  if (!twit){
+    console.error("Sorry, have haven't setup twitter yet in your .env")
+    return false;
   }
-  return false;
+  if (now - lastRun <= (1000 * 60 * postDelay)) { // Only post every process.env.POST_DELAY_IN_MINUTES or 60 minutes
+    console.error(`It's too soon, we only post every ${postDelay} minutes. It's only been ${ Math.floor((now - lastRun) / 60 / 1000 ) } minutes`);
+    return false;
+  }
+  if (status.length > 140){
+    console.error(`Status too long: ${status}`);
+    return false;
+  }
+    
+  storage.setItemSync("lastRun", now);
+  postTweet(status);
+  return true;
 }
