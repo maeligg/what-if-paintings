@@ -21,7 +21,7 @@ function postTweet(status){
   if (twit){
     console.log("Tweeting!");
     twit.post('statuses/update', { status: status }, function(err, data, response) {
-      console.log(`Posted status: ${status}`)
+      console.log(`Posted status: ${status}`);
     });
     return true;
   } else {
@@ -30,6 +30,10 @@ function postTweet(status){
   }
 }
 
+// A few things will prevent a tweet from going out:
+//  - The correct keys aren't in .env
+//  - The status is too long
+//  - This bot tweeted less than POST_DELAY_IN_MINUTES minutes ago
 module.exports.tryToTweet = function(status){
   var now = Date.now(), // time since epoch in millisecond
       lastRun = storage.getItemSync("lastRun") || 0, // last time we were run in milliseconds

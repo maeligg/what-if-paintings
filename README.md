@@ -10,9 +10,9 @@ How to build your own bot:
 - Send a GET or POST request to `{Glitch URL}/tweet` (for instance: `https://tracery-twitter-bot.glitch.me/tweet` for the `tracery-twitter-bot` project)
 - Use a cron or uptime service (like [Uptime Robot](http://uptimerobot.com)) to hit the above URL to trigger the bot regularly
 
-Things you could try:
-- Completely replacing grammar.json with your own content 
+Things should try:
+- Create a whole new grammar in `grammar.json` (Check out [Cheap Bots, Done Quick!](http://cheapbotsdonequick.com/) for ideas)
 - Instead of using Tracery, find a different way to generate text and use that in `generateStatus()` in `bot.js`
-- 
+- Licking your elbow. You've built a Twitter bot, you can do anything!
 
 🤖 [Byron Hulcher](http://twitter.com/hypirlink)
