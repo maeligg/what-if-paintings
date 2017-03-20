@@ -46,9 +46,17 @@ function tryToTweet(){
   }
 }
 
-if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] && twitConfig['access_token'] && twitConfig['access_token_secret']){
+var app = express();
+app.use(express.static('public')); // serve static files like index.html
+
+try {
   var twit = new Twit(twitConfig);
-  var app = express();
+} catch(err) {
+  
+}
+if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] && twitConfig['access_token'] && twitConfig['access_token_secret']){
+  
+
   // http://expressjs.com/en/starter/basic-routing.html
   app.get("/tweet", function (request, response) {
     console.log("Got a hit!");
@@ -56,12 +64,12 @@ if (twitConfig['consumer_key'] && twitConfig['consumer_secret'] && twitConfig['a
     response.sendStatus(200)
   });
 
-  // listen for requests :)
-  var listener = app.listen(process.env.PORT, function () {
-    console.log('Your app is listening on port ' + listener.address().port);
-  });
-
-  console.log("Server live");
+  console.log("Ready to tweet!");
 } else {
   console.log("You're mising values in your .env file");
 }
+
+// listen for requests :)
+var listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
