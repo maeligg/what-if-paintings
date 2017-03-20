@@ -1,18 +1,19 @@
-var express = require('express'),
-    storage = require('node-persist'),
+var storage = require('node-persist'),
     Twit = require('twit'),
-    grammar = require('./tracery.js').grammar,
     twit;
 
 storage.initSync();
 
-var twitConfig = {
-  
-}
-
-function generateStatus() {
-  // Generate a new tweet using our grammar
-  return grammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
+try {
+  twit = new Twit({
+    consumer_key:         process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret:      process.env.TWITTER_CONSUMER_SECRET,
+    access_token:         process.env.TWITTER_ACCESS_TOKEN,
+    access_token_secret:  process.env.TWITTER_ACCESS_TOKEN_SECRET
+  });
+} catch(err) {
+  console.error(err);
+  console.error("Sorry, your .env file does not have the correct settings in order to tweet");
 }
 
 function postTweet(status){
@@ -22,7 +23,7 @@ function postTweet(status){
   });
 }
 
-function tryToTweet(){
+module.exports.tryToTweet = function(status){
   var now = Date.now(), // time since epoch in millisecond
       lastRun = storage.getItemSync("lastRun") || 0, // last time we were run in milliseconds
       postDelay = process.env.POST_DELAY_IN_MINUTES || 60, // time to delay between tweets in minutes
@@ -45,17 +46,6 @@ function tryToTweet(){
 var app = express();
 app.use(express.static('public')); // serve static files like index.html
 
-try {
-  twit = new Twit({
-    consumer_key:         process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret:      process.env.TWITTER_CONSUMER_SECRET,
-    access_token:         process.env.TWITTER_ACCESS_TOKEN,
-    access_token_secret:  process.env.TWITTER_ACCESS_TOKEN_SECRET
-  });
-} catch(err) {
-  console.error(err);
-  console.log("Sorry, your .env file does not have the correct settings in order to tweet");
-}
 
 if (twit){
   // http://expressjs.com/en/starter/basic-routing.html
