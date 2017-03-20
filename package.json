@@ -1,6 +1,6 @@
 {
   "name": "tracery-twitter-bot",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "twitterbot generating from tracery",
   "main": "bot.js",
   "scripts": {

@@ -28,8 +28,6 @@ function postTweet(status){
     console.error("Sorry, have haven't setup twitter yet in your .env")
     return false;
   }
-  // Post a status to twitter to Twitter
-  
 }
 
 module.exports.tryToTweet = function(status){
@@ -47,5 +45,5 @@ module.exports.tryToTweet = function(status){
   } else {
     console.error(`It's too soon, we only post every ${postDelay} minutes. It's only been ${ Math.floor((now - lastRun) / 60 / 1000 ) } minutes`);
   }
-  ret
+  return false;
 }
