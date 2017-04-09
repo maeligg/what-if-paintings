@@ -13,7 +13,8 @@
     "express": "4.x",
     "node-persist":"2.x",
   	"tracery-grammar": "2.x",
-    "twit" : "1.x"
+    "twit" : "1.x",
+    "mastodon": "1.x"
   },
   "engines": {
     "node": "6.9.x"

@@ -1,5 +1,5 @@
 var express = require('express'),
-    // twitter = require('./twitter.js'), // this require() will log an error if you don't have your .env file setup correctly
+    twitter = require('./twitter.js'), // this require() will log an error if you don't have your .env file setup correctly
     grammar = require('./tracery.js').grammar;
 
 var app = express();
