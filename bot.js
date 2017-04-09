@@ -1,5 +1,5 @@
 var express = require('express'),
-    twitter = require('./twitter.js'), // this require() will log an error if you don't have your .env file setup correctly
+    // twitter = require('./twitter.js'), // this require() will log an error if you don't have your .env file setup correctly
     grammar = require('./tracery.js').grammar;
 
 var app = express();
@@ -26,5 +26,8 @@ app.all("/tweet", function (request, response) { // send a GET or POST to /tweet
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
-  console.log('Here are some statuses:")
+  console.log('Here are some statuses:');
+   Array.apply(null,Array(5)).map((_,i)=>{console.log(generateStatus())});
+  console.log("***")
+  
 });

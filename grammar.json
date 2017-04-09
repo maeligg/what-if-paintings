@@ -1,12 +1,19 @@
 {
-	"origin": ["#count_thing"],
+	"origin": ["#count_thing#"],
   "count_thing": [
     "1 #thing#",
-    "#int_gt_2 #thing.s#",
-    "#int_gt_2 #thing.s#",
-    "#int_gt_2 #thing.s#",
-    "#int_gt_2 #thing.s#",
-    "#int_gt_2 #thing.s#"
+    "2 #thing.s#",
+    "3 #thing.s#",
+    "4 #thing.s#",
+    "5 #thing.s#",
+    "6 #thing.s#",
+    "7 #thing.s#",
+    "8 #thing.s#",
+    "9 #thing.s#",
+    "10 #thing.s#",
+    "11 #thing.s#",
+    "12 #thing.s#",
+    "13 #thing.s#"
   ],
   "thing": [
     "candle",
