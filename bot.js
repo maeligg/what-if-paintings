@@ -26,4 +26,5 @@ app.all("/tweet", function (request, response) { // send a GET or POST to /tweet
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
+  console.log('Here are some statuses:")
 });
