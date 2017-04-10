@@ -1,5 +1,5 @@
 var express = require('express'),
-    twitter = require('./twitter.js'), // this require() will log an error if you don't have your .env file setup correctly
+    mastodon = require('./mastodon.js'), // this require() will log an error if you don't have your .env file setup correctly
     grammar = require('./tracery.js').grammar;
 
 var app = express();
@@ -11,11 +11,11 @@ function generateStatus() {
   return grammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
 }
 
-app.all("/tweet", function (request, response) { // send a GET or POST to /tweet to trigger a tweet http://expressjs.com/en/starter/basic-routing.html
+app.all("/toot", function (request, response) { // send a GET or POST to /tweet to trigger a tweet http://expressjs.com/en/starter/basic-routing.html
   var newStatus = generateStatus();
 
   console.log("Got a hit!");
-  if (twitter.tryToTweet(newStatus)){ // Some things could prevent us from tweeting. Find out more in twitter.js
+  if (mastodon.tryToTweet(newStatus)){ // Some things could prevent us from tweeting. Find out more in twitter.js
     response.sendStatus(200);  // We successfully tweeted
   } else {
     response.sendStatus(500); // Something prevented us from tweeting
@@ -27,7 +27,6 @@ app.all("/tweet", function (request, response) { // send a GET or POST to /tweet
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
   console.log('Here are some statuses:');
-   Array.apply(null,Array(5)).map((_,i)=>{console.log(generateStatus())});
+  for(var i = 0; i < 5; i++){console.log(generateStatus())};
   console.log("***")
-  
 });
