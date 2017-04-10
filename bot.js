@@ -11,14 +11,14 @@ function generateStatus() {
   return grammar.flatten("#origin#"); // make sure an "origin" entry is in your grammar.json file
 }
 
-app.all("/toot", function (request, response) { // send a GET or POST to /tweet to trigger a tweet http://expressjs.com/en/starter/basic-routing.html
+app.all("/toot", function (request, response) { // send a GET or POST to /toot to trigger a toot http://expressjs.com/en/starter/basic-routing.html
   var newStatus = generateStatus();
 
   console.log("Got a hit!");
-  if (mastodon.tryToTweet(newStatus)){ // Some things could prevent us from tweeting. Find out more in twitter.js
+  if (mastodon.tryToToot(newStatus)){ // Some things could prevent us from tooting. Find out more in mastodon.js
     response.sendStatus(200);  // We successfully tweeted
   } else {
-    response.sendStatus(500); // Something prevented us from tweeting
+    response.sendStatus(500); // Something prevented us from toot
   }
   
 });
@@ -28,5 +28,5 @@ var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
   console.log('Here are some statuses:');
   for(var i = 0; i < 5; i++){console.log(generateStatus())};
-  console.log("***")
+  console.log("✨🔮✨")
 });
