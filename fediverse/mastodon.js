@@ -34,7 +34,12 @@ module.exports = {
     }
   },
   post_image: function(text, image_base64, cb) {
-   twit.post('media/upload', { media_data: image_base64 }, function (err, data, response) {
+    console.log('tooting the image...');
+    twit.post('statuses/update', {
+      status: text,
+      file: image_base64
+    },
+    function(err, data, response) {
       if (err){
         console.log('ERROR:\n', err);
         if (cb){
@@ -42,27 +47,13 @@ module.exports = {
         }
       }
       else{
-        console.log('tweeting the image...');
-        twit.post('statuses/update', {
-          status: text,
-          media_ids: new Array(data.media_id_string)
-        },
-        function(err, data, response) {
-          if (err){
-            console.log('ERROR:\n', err);
-            if (cb){
-              cb(err);
-            }
-          }
-          else{
-            console.log('tweeted!');
-            if (cb){
-              cb(null);
-            }
-          }
-        });
+        console.log('tooted!');
+        if (cb){
+          cb(null);
+        }
       }
     });
+
   }  
 }
 

@@ -1,5 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
+    https = require('https'),
+    Stream = require('stream').Transform,
     request = require('request'),
     exec  = require('child_process');
 
@@ -79,16 +81,33 @@ module.exports = {
   },
   load_image: function(url, cb) {
     console.log('loading remote image...');
-    request({url: url, encoding: null}, function (err, res, body) {
-        if (!err && res.statusCode == 200) {
-          var b64content = 'data:' + res.headers['content-type'] + ';base64,';
-          console.log('image loaded...');
-          cb(null, body.toString('base64'));
-        } else {
-          console.log('ERROR:', err);
-          cb(err);
-        }
+    // request({url: url, encoding: null}, function (err, res, body) {
+    //     if (!err && res.statusCode == 200) {
+    //       var b64content = 'data:' + res.headers['content-type'] + ';base64,';
+    //       console.log('image loaded...');
+    //       cb(null, body.toString('base64'));
+    //     } else {
+    //       console.log('ERROR:', err);
+    //       cb(err);
+    //     }
+    // });
+    
+  https.request(url, function(response) {                                        
+    var data = new Stream();                                                    
+
+    response.on('data', function(chunk) {                                       
+      data.push(chunk);                                                         
+    });                                                                         
+
+    response.on('end', function() {                                             
+      fs.writeFileSync('image.png', data.read());                               
+    });                                                                         
+  }).end();
+    
+    https.get(url, function (res) {
+      cb(null, res.pipe(fs.createReadStream('upload')));
     });
+    
   },
   remove_asset: function(url, cb){
     var helpers = this;
