@@ -23,7 +23,6 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
       //  REMOVE_POSTED_IMAGES='yes'
 
       helpers.load_image(url, function(err, img_file){
-
         mastodon.post_image(helpers.random_from_array([
           'Check this out!',
           'New picture!'
