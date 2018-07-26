@@ -1,8 +1,5 @@
-var storage = require('node-persist'),
-    Twit = require('mastodon'),
+var Twit = require('mastodon'),
     twit;
-
-storage.initSync();
 
 try {
   twit = new Twit({
@@ -12,39 +9,26 @@ try {
   console.log('ready to toot!');
 } catch(err) {
   console.error(err);
-  console.error("sorry, your .env file does not have the correct settings in order to toot");
+  console.error('please update your .env file')
 }
 
-function postToot(status){
-  console.log("Tooting!");
+function post_toot(status){
+  console.log('tooting!');
   twit.post('statuses', { status: status }, function(err, data, response) {
-    console.log(`Posted status: ${status}`);
+    console.log(`posted status: ${status}`);
   });
 }
 
-// A few things will prevent a toot from going out:
-//  - The correct keys aren't in .env
-//  - The status is too long
-//  - This bot tweeted less than POST_DELAY_IN_MINUTES minutes ago
 module.exports.tryToToot = function(status){
-  var now = Date.now(), // time since epoch in millisecond
-      lastRun = storage.getItemSync("lastRun") || 0, // last time we were run in milliseconds
-      postDelay = process.env.POST_DELAY_IN_MINUTES || 60;// time to delay between tweets in minutes
-  
   if (!twit){
-    console.error("Sorry, have haven't setup Mastodon yet in your .env")
+    console.error('please update your .env file')
     return false;
   }
-  // if (now - lastRun <= (1000 * 60 * postDelay)) { // Only post every process.env.POST_DELAY_IN_MINUTES or 60 minutes
-  //   console.error(`It's too soon, we only post every ${postDelay} minutes. It's only been ${ Math.floor((now - lastRun) / 60 / 1000 ) } minutes`);
-  //   return false;
-  // }
   if (status.length > 500){
-    console.error(`Status too long: ${status}`);
+    console.error(`status too long: ${status}`);
     return false;
   }
     
-  storage.setItemSync("lastRun", now);
-  postToot(status);
+  post_toot(status);
   return true;
 }
