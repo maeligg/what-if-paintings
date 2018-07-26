@@ -19,7 +19,7 @@ function post_toot(status){
   });
 }
 
-module.exports.tryToToot = function(status){
+module.exports.toot = function(status){
   if (!twit){
     console.error('please update your .env file')
     return false;
