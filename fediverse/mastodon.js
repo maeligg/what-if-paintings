@@ -46,11 +46,12 @@ module.exports = {
         }
       }
       else{
-        console.log('tooting the image...');
         console.log(data);
-        twit.post('statuses/update', {
+        console.log('tooting the image...');
+        twit.post('statuses', {
           status: text,
-          media_ids: new Array(data.media_id_string)
+          // media_ids: new Array(data.media_id_string)
+          media_ids: new Array(data.id)
         },
         function(err, data, response) {
           if (err){
