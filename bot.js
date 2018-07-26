@@ -22,12 +22,12 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
       /* If you want to delete the image after it's posted, update your .env file: */
       //  REMOVE_POSTED_IMAGES='yes'
 
-      helpers.load_image(url, function(err, img_data){
+      helpers.load_image(url, function(err, img_file){
 
         mastodon.post_image(helpers.random_from_array([
           'Check this out!',
           'New picture!'
-        ]), img_data, function(err){
+        ]), img_file, function(err){
           if (!err){
             var remove_posted_images = process.env.REMOVE_POSTED_IMAGES;
             if (remove_posted_images === 'yes' || remove_posted_images === 'true'){

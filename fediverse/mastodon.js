@@ -1,4 +1,5 @@
-var Twit = require('mastodon'),
+var fs = require('fs'),
+    Twit = require('mastodon'),
     twit;
 
 try {
@@ -33,13 +34,11 @@ module.exports = {
       cb(null);
     }
   },
-  post_image: function(text, image_base64, cb) {
-    console.log('tooting the image...');
-    twit.post('statuses/update', {
-      status: text,
-      file: image_base64
-    },
-    function(err, data, response) {
+  post_image: function(text, img_file, cb) {
+
+   twit.post('media', { 
+     file: fs.createReadStream(`${__dirname}/${img_file}`)
+   }, function (err, data, response) {
       if (err){
         console.log('ERROR:\n', err);
         if (cb){
@@ -47,12 +46,30 @@ module.exports = {
         }
       }
       else{
-        console.log('tooted!');
-        if (cb){
-          cb(null);
-        }
+        console.log('tooting the image...');
+        twit.post('statuses/update', {
+          status: text,
+          media_ids: new Array(data.media_id_string)
+        },
+        function(err, data, response) {
+          if (err){
+            console.log('ERROR:\n', err);
+            if (cb){
+              cb(err);
+            }
+          }
+          else{
+            console.log('tweeted!');
+            if (cb){
+              cb(null);
+            }
+          }
+        });
       }
     });
+      
+    
+  
 
   }  
 }

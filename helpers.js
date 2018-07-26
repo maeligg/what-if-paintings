@@ -1,7 +1,6 @@
 var fs = require('fs'),
     path = require('path'),
     https = require('https'),
-    Stream = require('stream').Transform,
     request = require('request'),
     exec  = require('child_process');
 
@@ -80,6 +79,7 @@ module.exports = {
     return url.substring(url.lastIndexOf('/') + 1);
   },
   load_image: function(url, cb) {
+    var helpers = this;
     console.log('loading remote image...');
     // request({url: url, encoding: null}, function (err, res, body) {
     //     if (!err && res.statusCode == 200) {
@@ -91,23 +91,11 @@ module.exports = {
     //       cb(err);
     //     }
     // });
-    
-  https.request(url, function(response) {                                        
-    var data = new Stream();                                                    
 
-    response.on('data', function(chunk) {                                       
-      data.push(chunk);                                                         
-    });                                                                         
-
-    response.on('end', function() {                                             
-      fs.writeFileSync('image.png', data.read());                               
-    });                                                                         
-  }).end();
-    
-    https.get(url, function (res) {
-      cb(null, res.pipe(fs.createReadStream('upload')));
+    helpers.download_file(url, `${__dirname}/temp_img`, function(err){
+      console.log(err);
+      cb(err, 'temp_img');
     });
-    
   },
   remove_asset: function(url, cb){
     var helpers = this;
