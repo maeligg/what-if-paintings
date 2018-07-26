@@ -92,8 +92,7 @@ module.exports = {
     //     }
     // });
 
-    helpers.download_file(url, `${__dirname}/temp_img`, function(err){
-      console.log(err);
+    helpers.download_file(url, 'temp_img', function(err){
       cb(err, 'temp_img');
     });
   },
@@ -118,7 +117,7 @@ module.exports = {
   },
   download_file: function(uri, filename, cb){
     request.head(uri, function(err, res, body){
-      request(uri).pipe(fs.createWriteStream(filename)).on('close', cb);
+      request(uri).pipe(fs.createWriteStream(__dirname + '/' + filename)).on('close', cb);
     });
   }
 };

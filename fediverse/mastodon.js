@@ -37,7 +37,7 @@ module.exports = {
   post_image: function(text, img_file, cb) {
 
    twit.post('media', { 
-     file: fs.createReadStream(`${__dirname}/${img_file}`)
+     file: fs.createReadStream(`${__dirname}/../${img_file}`)
    }, function (err, data, response) {
       if (err){
         console.log('ERROR:\n', err);
@@ -47,6 +47,7 @@ module.exports = {
       }
       else{
         console.log('tooting the image...');
+        console.log(data);
         twit.post('statuses/update', {
           status: text,
           media_ids: new Array(data.media_id_string)
@@ -59,7 +60,7 @@ module.exports = {
             }
           }
           else{
-            console.log('tweeted!');
+            console.log('tooted!');
             if (cb){
               cb(null);
             }
