@@ -46,7 +46,7 @@ module.exports = {
         }
       }
       else{
-        console.log(data);
+        // console.log(data);
         console.log('tooting the image...');
         twit.post('statuses', {
           status: text,

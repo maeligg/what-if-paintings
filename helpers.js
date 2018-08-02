@@ -105,7 +105,7 @@ module.exports = {
       data_array.forEach(function(d){
         if (d.indexOf(url) > -1){
             img_data = JSON.parse(d);
-            console.log(img_data);
+            // console.log(img_data);
             return;
         }
       });
