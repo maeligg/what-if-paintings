@@ -2,6 +2,7 @@
 
 # Fediverse bot starter project
 
+*Note: Currently only supports Mastodon, more networks to come.*
 
 ## Set up
 
@@ -14,6 +15,7 @@
 Get your [Mastodon OAuth token](https://tinysubversions.com/notes/mastodon-bot/index.html) and save it as `MASTODON_ACCESS_TOKEN` 
 
 
-4. TBD
+4. Update `bot.js` with your bot's code. See the `examples` folder for what you can do. Also check out the [documentation for the node-mastodon library](https://github.com/jhayley/node-mastodon) and the [Mastodon API](https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md).
+
 
 Based on [~tracery-mastodon-bot](https://glitch.com/~tracery-mastodon-bot) by [Byron Hulcher](http://twitter.com/hypirlink).
