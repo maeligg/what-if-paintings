@@ -1,6 +1,6 @@
 ![Toot!](https://cdn.glitch.com/f44e0bef-fc19-4942-a12f-61c6eef11180%2Fimg-wide.png?1532633679042)
 
-# Fediverse bot starter project
+# Fediverse bot starter project [BETA]
 
 *Note: Currently only supports Mastodon, more networks to come.*
 
