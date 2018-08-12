@@ -7,10 +7,10 @@
 ## Set up
 
 1. Remix this project.
-2. [Create an account for your bot.](https://botwiki.org/resource/tutorial/how-to-make-a-mastodon-botsin-space-app-bot/), preferably on [botsin.space](http://botsin.space), a Mastodon instance dedicated to bots.
+2. [Create an account for your bot](https://botwiki.org/resource/tutorial/how-to-make-a-mastodon-botsin-space-app-bot/), preferably on [botsin.space](http://botsin.space), a Mastodon instance dedicated to bots.
 3. Update your `.env` file:
 
-- `MASTODON_API`: for example `https://mastodon.social/api/v1/`, or `https://botsin.space/api/v1/` based on where you created your bot.
+- `MASTODON_API`: for example `https://mastodon.social/api/v1/`, or `https://botsin.space/api/v1/`, based on where you created your bot.
 - `MASTODON_ACCESS_TOKEN`: the token you acquired in step 2
 - `BOT_ENDPOINT`: part of the URL used to wake up your bot (`https://PROJECT_NAME.glitch.me/BOT_ENDPOINT`)
 
