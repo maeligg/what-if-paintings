@@ -22,3 +22,7 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
 var listener = app.listen(process.env.PORT, function () {
   console.log(`your bot is running on port ${listener.address().port}`);
 });
+
+app.get('/', function (req, res) {
+  res.write('Make your own Fediverse bot with <a href="https://glitch.com/edit/#!/fediverse-bot">fediverse-bot</a> on <a href="https://glitch.com/">Glitch</a>');
+});
