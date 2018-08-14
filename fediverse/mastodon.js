@@ -1,9 +1,9 @@
 var fs = require('fs'),
-    Twit = require('mastodon'),
-    twit;
+    Mastodon = require('mastodon'),
+    M;
 
 try {
-  twit = new Twit({
+  M = new Mastodon({
     'access_token': process.env.MASTODON_ACCESS_TOKEN,
     'api_url': process.env.MASTODON_API || 'https://mastodon.social/api/v1/'
   });
@@ -13,10 +13,9 @@ try {
   console.error('please update your .env file')
 }
 
-
 module.exports = {
   toot: function(status, cb){
-    if (!twit){
+    if (!M){
       console.error('please update your .env file')
       return false;
     }
@@ -26,7 +25,7 @@ module.exports = {
     }
 
     console.log('tooting!');
-    twit.post('statuses', { status: status }, function(err, data, response) {
+    M.post('statuses', { status: status }, function(err, data, response) {
       console.log(`posted status: ${status}`);
     });
     
@@ -36,7 +35,7 @@ module.exports = {
   },
   post_image: function(text, img_file, cb) {
 
-   twit.post('media', { 
+   M.post('media', { 
      file: fs.createReadStream(`${__dirname}/../${img_file}`)
    }, function (err, data, response) {
       if (err){
@@ -48,7 +47,7 @@ module.exports = {
       else{
         // console.log(data);
         console.log('tooting the image...');
-        twit.post('statuses', {
+        M.post('statuses', {
           status: text,
           // media_ids: new Array(data.media_id_string)
           media_ids: new Array(data.id)
@@ -69,10 +68,6 @@ module.exports = {
         });
       }
     });
-      
-    
-  
-
   }  
 }
 
