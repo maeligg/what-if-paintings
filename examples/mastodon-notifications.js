@@ -7,7 +7,8 @@ app.use(express.static('public'));
 
 app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {  
   /*
-    See Notification documentation:
+    This example shows how to handle the "mention", "reblog", "favourite", and "follow" notifications.
+    See Notification documentation for more details:
 
     https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#notification
 
