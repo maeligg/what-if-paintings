@@ -14,7 +14,7 @@ try {
 }
 
 module.exports = {
-  M: M,  
+  M: M,
   toot: function(status, cb){
     if (!M){
       console.error('please update your .env file')
@@ -28,11 +28,10 @@ module.exports = {
     console.log('tooting...');
     M.post('statuses', { status: status }, function(err, data, response) {
       console.log(`posted status: ${status}`);
+      if (cb){
+        cb(err, data);
+      }
     });
-    
-    if (cb){
-      cb(null);
-    }
   },
   reply: function(status, response, cb){
     if (!M){
@@ -53,14 +52,34 @@ module.exports = {
       status: response
     }, function(err, data, response) {
       if (cb){
-        cb(err, data, response);
+        cb(err, data);
       }
     });
   },
+  get_notifications: function(cb){
+    M.get('notifications', function(err, notifications){
+      if (cb){
+        cb(err, notifications);
+      }
+    });  
+  },
+  dismiss_notification: function(notification, cb){
+    if (notification && notification.id){
+      M.post('notifications/dismiss', {
+        id: notification.id
+      }).then(function(err, data, response){
+        if (cb){
+          cb(err, data);
+        }
+      }).catch(function(err){
+        console.log(err);
+      });
+    }
+  },
   post_image: function(text, img_file, cb) {
-   M.post('media', { 
-     file: fs.createReadStream(`${__dirname}/../${img_file}`)
-   }, function (err, data, response) {
+    M.post('media', { 
+      file: fs.createReadStream(`${__dirname}/../${img_file}`)
+    }, function (err, data, response) {
       if (err){
         console.log('ERROR:\n', err);
         if (cb){
