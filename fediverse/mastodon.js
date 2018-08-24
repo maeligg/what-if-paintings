@@ -14,6 +14,7 @@ try {
 }
 
 module.exports = {
+  M: M,  
   toot: function(status, cb){
     if (!M){
       console.error('please update your .env file')
@@ -57,7 +58,6 @@ module.exports = {
     });
   },
   post_image: function(text, img_file, cb) {
-
    M.post('media', { 
      file: fs.createReadStream(`${__dirname}/../${img_file}`)
    }, function (err, data, response) {

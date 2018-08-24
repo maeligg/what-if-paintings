@@ -1,6 +1,5 @@
 var express = require('express'),
     mastodon = require('./fediverse/mastodon.js'),
-    webpush = require('web-push'),
     helpers = require(__dirname + '/helpers.js'),
     app = express();
 
