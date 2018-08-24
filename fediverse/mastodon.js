@@ -7,7 +7,7 @@ try {
     'access_token': process.env.MASTODON_ACCESS_TOKEN,
     'api_url': process.env.MASTODON_API || 'https://mastodon.social/api/v1/'
   });
-  console.log('ready to toot!');
+  console.log('ready to toot...');
 } catch(err) {
   console.error(err);
   console.error('please update your .env file')
@@ -24,7 +24,7 @@ module.exports = {
       return false;
     }
 
-    console.log('tooting!');
+    console.log('tooting...');
     M.post('statuses', { status: status }, function(err, data, response) {
       console.log(`posted status: ${status}`);
     });
@@ -32,6 +32,29 @@ module.exports = {
     if (cb){
       cb(null);
     }
+  },
+  reply: function(status, response, cb){
+    if (!M){
+      console.error('please update your .env file')
+      return false;
+    }
+    if (response.length > 500){
+      console.error(`status too long: ${response}`);
+      return false;
+    }
+
+    console.log('responding...');
+
+    M.post('statuses', { 
+      in_reply_to_id: status.id,
+      spoiler_text: status.spoiler_text,
+      visibility: status.visibility,
+      status: response
+    }, function(err, data, response) {
+      if (cb){
+        cb(err, data, response);
+      }
+    });
   },
   post_image: function(text, img_file, cb) {
 
@@ -60,7 +83,7 @@ module.exports = {
             }
           }
           else{
-            console.log('tooted!');
+            console.log('tooted');
             if (cb){
               cb(null);
             }
@@ -70,5 +93,3 @@ module.exports = {
     });
   }  
 }
-
-
