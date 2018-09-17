@@ -24,31 +24,29 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
       //  REMOVE_POSTED_IMAGES='yes'
 
       helpers.load_image(url, function(err, img_file){
-        const message = generateMessageFromFile(url);
+        const message = generateMessage(url);
         console.log(message);
         
-        // mastodon.post_image(helpers.random_from_array([
-        //   'Check this out!',
-        //   'New picture!'
-        // ]), img_file, function(err){
-        //   if (!err){
-        //     if (process.env.REMOVE_POSTED_IMAGES === 'yes'){
-        //       helpers.remove_asset(url);
-        //     }
-        //   }        
-        // });
+        mastodon.post_image(message, img_file, function(err){
+          if (!err){
+            if (process.env.REMOVE_POSTED_IMAGES === 'yes'){
+              helpers.remove_asset(url);
+            }
+          } else {
+            console.log(err);
+          }   
+        });
       });
     }
     res.sendStatus(200);
   });  
 });
 
-const generateMessageFromFile = (url) => {
+const generateMessage = (url) => {
   let fileInfo = helpers.get_filename_from_url(url).split('%2F')[1];
-  fileInfo = fileInfo.replace(/(.jpg)|(.jpeg)|(.png)/, '').replace(/-/g, ' ').split('_');
+  fileInfo = fileInfo.replace(/.(jpg)|(jpeg)|(png)/, '').replace(/-/g, ' ').split('_');
   
-  const message = `${fileInfo[0]}, by ${fileInfo[1]}`;
-  return message;
+  return `${fileInfo[0]}, by ${fileInfo[1]}`;
 };
 
 var listener = app.listen(process.env.PORT, function () {
