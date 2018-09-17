@@ -25,7 +25,8 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
       //  REMOVE_POSTED_IMAGES='yes'
 
       helpers.load_image(url, function(err, img_file){
-        console.log(img_file);
+        const message = generateMessageFromFile(img_file);
+        console.log(message);
         
         // mastodon.post_image(helpers.random_from_array([
         //   'Check this out!',
@@ -42,6 +43,12 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
     res.sendStatus(200);
   });  
 });
+
+const generateMessageFromFile = (file) => {
+  console.log(typeof file);
+  const message = file.replace(/-/g, ' ');
+  return message;
+};
 
 var listener = app.listen(process.env.PORT, function () {
   console.log(`your bot is running on port ${listener.address().port}`);
