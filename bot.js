@@ -44,8 +44,10 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
 });
 
 const generateMessageFromFile = (url) => {
-  let message = 
-      murl.replace(/_/g, ' ');
+  let fileInfo = helpers.get_filename_from_url(url).split('%2F')[1];
+  fileInfo = fileInfo.replace(/(.jpg)|(.jpeg)|(.png)/, '').replace(/-/g, ' ').split('_');
+  
+  const message = `${fileInfo[0]}, by ${fileInfo[1]}`;
   return message;
 };
 
