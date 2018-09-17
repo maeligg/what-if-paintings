@@ -9,7 +9,6 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
   /* First, load images from the assets folder. */
 
   helpers.load_image_assets(function(err, urls){
-
     /* Let's make sure we have some images. */
 
     if (urls && urls.length > 0){
@@ -25,7 +24,7 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
       //  REMOVE_POSTED_IMAGES='yes'
 
       helpers.load_image(url, function(err, img_file){
-        const message = generateMessageFromFile(img_file);
+        const message = generateMessageFromFile(url);
         console.log(message);
         
         // mastodon.post_image(helpers.random_from_array([
@@ -44,9 +43,9 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
   });  
 });
 
-const generateMessageFromFile = (file) => {
-  console.log(typeof file);
-  const message = file.replace(/-/g, ' ');
+const generateMessageFromFile = (url) => {
+  let message = 
+      murl.replace(/_/g, ' ');
   return message;
 };
 
