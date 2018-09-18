@@ -2,7 +2,7 @@
 
 # What if paintings
 
-This is a Node.js bot that posts images on Mastodon. It is based on the [Fediverse bot starter project]()
+This is a Node.js bot that posts images on Mastodon. It is based on the [Fediverse bot starter project](https://glitch.com/edit/#!/fediverse-bot) by [@stefan](https://glitch.com/@stefan). The images are pregenerated using Tensorflow and [neural-style](https://github.com/anishathalye/neural-style).
 
 ## Set up
 
@@ -16,6 +16,3 @@ This is a Node.js bot that posts images on Mastodon. It is based on the [Fediver
 
 
 4. Update `bot.js` with your bot's code. See the `examples` folder for what you can do. Also check out the [documentation for the node-mastodon library](https://github.com/jhayley/node-mastodon) and the [Mastodon API](https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md).
-
-
-Based on [~tracery-mastodon-bot](https://glitch.com/~tracery-mastodon-bot) by [Byron Hulcher](http://twitter.com/hypirlink).
