@@ -1,5 +1,3 @@
-![Toot!](https://cdn.glitch.com/f44e0bef-fc19-4942-a12f-61c6eef11180%2Fimg-wide.png?1532633679042)
-
 # What if paintings
 
 This is a Node.js bot that posts images on Mastodon. It is based on the [Fediverse bot starter project](https://glitch.com/edit/#!/fediverse-bot) by [@stefan](https://glitch.com/@stefan). The images are pregenerated using Tensorflow and [neural-style](https://github.com/anishathalye/neural-style).
