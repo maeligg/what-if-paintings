@@ -1,8 +1,8 @@
 ![Toot!](https://cdn.glitch.com/f44e0bef-fc19-4942-a12f-61c6eef11180%2Fimg-wide.png?1532633679042)
 
-# Fediverse bot starter project [BETA]
+# What if paintings
 
-*Note: Currently only supports Mastodon, more networks to come.*
+This is a Node.js bot that posts images on Mastodon. It is based on the [Fediverse bot starter project]()
 
 ## Set up
 
