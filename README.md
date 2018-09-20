@@ -1,6 +1,6 @@
 # What if paintings
 
-This is a Node.js bot that posts images on Mastodon. It is based on the [Fediverse bot starter project](https://glitch.com/edit/#!/fediverse-bot) by [@stefan](https://glitch.com/@stefan). The images are pregenerated using Tensorflow and [neural-style](https://github.com/anishathalye/neural-style).
+This is a Node.js bot that posts images on Mastodon at [@what_if_paintings](https://botsin.space/@what_if_paintings). It is based on the [Fediverse bot starter project](https://glitch.com/edit/#!/fediverse-bot) by [@stefan](https://glitch.com/@stefan). The images are pregenerated using Tensorflow and [neural-style](https://github.com/anishathalye/neural-style).
 
 ## Set up
 
