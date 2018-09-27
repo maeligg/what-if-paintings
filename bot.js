@@ -44,7 +44,9 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
 
 const generateMessage = (url) => {
   let fileInfo = helpers.get_filename_from_url(url).split('%2F')[1];
-  fileInfo = fileInfo.replace(/.(jpg)|(jpeg)|(png)/, '').replace(/-/g, ' ').replace(/(%\d?\d?[A-Z]?)/g, decodeURIComponent($1)).split('_');
+  fileInfo = fileInfo.replace(/.(jpg)|(jpeg)|(png)/, '').replace(/-/g, ' ').replace(/(%\d?\d?[A-Z]?)/g, (match, $1) => {
+ return decodeURIComponent($1);
+}).split('_');
   
   return `${fileInfo[0]}, by ${fileInfo[1]}`;
 };
