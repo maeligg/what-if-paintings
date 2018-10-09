@@ -59,7 +59,6 @@ module.exports = {
   
             if (image_url && deleted_images.indexOf(img_data.uuid) === -1 && helpers.extension_check(image_url)){
               var file_name = helpers.get_filename_from_url(image_url).split('%2F')[1];
-              console.log(`- ${file_name}`);
               img_urls.push(image_url);
             }
           }

@@ -1,4 +1,5 @@
-var express = require('express'),
+var fs = require('fs'),
+    express = require('express'),
     mastodon = require('./fediverse/mastodon.js'),
     helpers = require(__dirname + '/helpers.js'),
     app = express(),
@@ -36,7 +37,7 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
 
       helpers.load_image(url, function(err, img_file){
         const message = generateMessage(url);
-        console.log(message);
+        const b64content = fs.readFileSync('/path/to/img', { encoding: 'base64' });
         
         mastodon.post_image(message, img_file, function(err){
           if (!err){
@@ -47,6 +48,7 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
             console.log(err);
           }   
         });
+        
         
         T.post('media/upload', { media_data: img_file }, function(err, data, response) {
           if (err){
