@@ -39,15 +39,15 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
         const message = generateMessage(url);
         const b64content = fs.readFileSync(img_file, { encoding: 'base64' });
         
-        // mastodon.post_image(message, img_file, function(err){
-        //   if (!err){
-        //     if (process.env.REMOVE_POSTED_IMAGES === 'yes'){
-        //       helpers.remove_asset(url);
-        //     }
-        //   } else {
-        //     console.log(err);
-        //   }   
-        // });
+        mastodon.post_image(message, img_file, function(err){
+          if (!err){
+            if (process.env.REMOVE_POSTED_IMAGES === 'yes'){
+              helpers.remove_asset(url);
+            }
+          } else {
+            console.log(err);
+          }   
+        });
         
         
         T.post('media/upload', { media_data: b64content }, function(err, data, response) {
@@ -65,9 +65,6 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
             function(err, data, response) {
               if (err){
                 console.log('ERROR:\n', err);
-              }
-              else{
-                res.sendStatus(200);
               }
             });
           }
