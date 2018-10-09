@@ -1,18 +1,18 @@
 var express = require('express'),
     mastodon = require('./fediverse/mastodon.js'),
     helpers = require(__dirname + '/helpers.js'),
-    app = express();
-    // Twit = require('twit'),
-    // config = {
-    // /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/how-to-create-a-twitter-app */      
-    //   twitter: {
-    //     consumer_key: process.env.CONSUMER_KEY,
-    //     consumer_secret: process.env.CONSUMER_SECRET,
-    //     access_token: process.env.ACCESS_TOKEN,
-    //     access_token_secret: process.env.ACCESS_TOKEN_SECRET
-    //   }
-    // },
-    // T = new Twit(config.twitter);
+    app = express(),
+    Twit = require('twit'),
+    config = {
+    /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/how-to-create-a-twitter-app */      
+      twitter: {
+        consumer_key: process.env.CONSUMER_KEY,
+        consumer_secret: process.env.CONSUMER_SECRET,
+        access_token: process.env.ACCESS_TOKEN,
+        access_token_secret: process.env.ACCESS_TOKEN_SECRET
+      }
+    },
+    T = new Twit(config.twitter);
 
 app.use(express.static('public'));
 
@@ -46,6 +46,28 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
           } else {
             console.log(err);
           }   
+        });
+        
+        T.post('media/upload', { media_data: img_file }, function(err, data, response) {
+          if (err){
+            console.log('error!', err);
+            res.sendStatus(500);
+          }
+          else{
+            console.log('tweeting the image...');
+            T.post('statuses/update', {
+              status: message,
+              media_ids: new Array(data.media_id_string)
+            },
+            function(err, data, response) {
+              if (err){
+                console.log('ERROR:\n', err);
+              }
+              else{
+                res.sendStatus(200);
+              }
+            });
+          }
         });
       });
     }
