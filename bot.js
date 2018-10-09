@@ -37,26 +37,27 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
 
       helpers.load_image(url, function(err, img_file){
         const message = generateMessage(url);
-        const b64content = fs.readFileSync('/path/to/img', { encoding: 'base64' });
+        const b64content = fs.readFileSync(img_file, { encoding: 'base64' });
         
-        mastodon.post_image(message, img_file, function(err){
-          if (!err){
-            if (process.env.REMOVE_POSTED_IMAGES === 'yes'){
-              helpers.remove_asset(url);
-            }
-          } else {
-            console.log(err);
-          }   
-        });
+        // mastodon.post_image(message, img_file, function(err){
+        //   if (!err){
+        //     if (process.env.REMOVE_POSTED_IMAGES === 'yes'){
+        //       helpers.remove_asset(url);
+        //     }
+        //   } else {
+        //     console.log(err);
+        //   }   
+        // });
         
         
-        T.post('media/upload', { media_data: img_file }, function(err, data, response) {
+        T.post('media/upload', { media_data: b64content }, function(err, data, response) {
           if (err){
             console.log('error!', err);
             res.sendStatus(500);
           }
           else{
             console.log('tweeting the image...');
+            
             T.post('statuses/update', {
               status: message,
               media_ids: new Array(data.media_id_string)
