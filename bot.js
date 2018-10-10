@@ -1,4 +1,4 @@
-var fs = require('fs'),
+const fs = require('fs'),
     express = require('express'),
     mastodon = require('./fediverse/mastodon.js'),
     helpers = require(__dirname + '/helpers.js'),
@@ -27,7 +27,7 @@ app.all(`/${process.env.BOT_ENDPOINT}`, function (req, res) {
 
       /* Pick a random image. */
       
-      var url = helpers.random_from_array(urls);
+      const url = helpers.random_from_array(urls);
 
       /* You could also get the first image alphabetically. */
       //  var url = urls.sort()[0];
@@ -84,6 +84,6 @@ const generateMessage = (url) => {
   return `${fileInfo[0]}, by ${fileInfo[1]}`;
 };
 
-var listener = app.listen(process.env.PORT, function () {
+const listener = app.listen(process.env.PORT, function () {
   console.log(`your bot is running on port ${listener.address().port}`);
 });
