@@ -6,17 +6,16 @@
   "scripts": {
     "start": "node bot.js"
   },
-  "dependencies":
-  {
+  "dependencies": {
     "express": "4.x",
-    "twit" : "1.x",
+    "twit": "1.x",
     "mastodon": "1.x"
   },
   "engines": {
     "node": "8.x"
   },
-  "repository" : { 
-    "type" : "glitch",
-    "url" : "https://glitch.com/edit/#!/tracery-twitter-bot"
+  "repository": {
+    "type": "glitch",
+    "url": "https://glitch.com/edit/#!/tracery-twitter-bot"
   }
 }
