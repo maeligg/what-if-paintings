@@ -47,10 +47,9 @@ fs.readdir(path.join(__dirname, 'images'), function (err, files) {
   M.post('media', { 
     file: fs.createReadStream(`${__dirname}/images/${randomImage}`)
   }, function (err, data, response) {
-    if (err){
+    if (err) {
       console.log('ERROR:\n', err);
-    }
-    else {
+    } else {
       console.log('tooting the image...');
       M.post('statuses', {
         status: message,
@@ -68,11 +67,10 @@ fs.readdir(path.join(__dirname, 'images'), function (err, files) {
   });
   
   T.post('media/upload', { media_data: b64content }, function(err, data, response) {
-    if (err){
+    if (err) {
       console.log('error!', err);
       res.sendStatus(500);
-    }
-    else{
+    } else{
       console.log('tweeting the image...');
       
       T.post('statuses/update', {
@@ -86,4 +84,6 @@ fs.readdir(path.join(__dirname, 'images'), function (err, files) {
       });
     }
   });
+
+  return;
 });
