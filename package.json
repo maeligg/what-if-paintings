@@ -1,21 +1,22 @@
 {
-  "name": "fediverse-bot",
+  "name": "what-if-paintings",
+  "author": "Maël Brunet",
   "version": "1.0.0",
-  "description": "A starter project for Fediverse bots.",
-  "main": "bot.js",
+  "description": "A Mastodon / Twitter bot posting AI-generated imaginary paintings",
+  "main": "index.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node index.js"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "4.x",
-    "twit": "1.x",
-    "mastodon": "1.x"
+    "mastodon": "^1.x",
+    "twit": "1.x"
   },
   "engines": {
     "node": "8.x"
   },
   "repository": {
-    "type": "glitch",
-    "url": "https://glitch.com/edit/#!/tracery-twitter-bot"
+    "url": "https://github.com/maeligg/what-if-paintings.git"
   }
 }
